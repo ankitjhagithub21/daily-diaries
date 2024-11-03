@@ -7,7 +7,7 @@ const Sidebar = () => {
   const navigate = useNavigate()
 
   return (
-    <div className='flex flex-col p-3'>
+    <div className='flex flex-col p-3 md:w-1/4 w-fit'>
       {
         loading ? (
           <p>Loading...</p>

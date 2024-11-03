@@ -6,9 +6,9 @@ import StoryDetails from '../components/StoryDetails'
 
 const Home = () => {
   return (
-    <div className='h-screen w-full flex overflow-y-scroll'>
+    <div className='h-screen w-full flex'>
       <Sidebar />
-     <div className='overflow-y-scroll h-screen'>
+     <div className='overflow-y-scroll h-screen w-full'>
      <Routes>
         <Route index path="/" element={<AddStory/>}/>
         <Route path="/stories/:id" element={<StoryDetails/>}/>
