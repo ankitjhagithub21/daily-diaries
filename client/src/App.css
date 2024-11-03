@@ -27,7 +27,7 @@
     left: 0;
     position: absolute;
     border: 10px solid transparent;
-    border-bottom-color: #fff;
+    border-bottom-color: #333;
     transform: translate(-10px, 19px) rotate(-35deg);
 }
 
