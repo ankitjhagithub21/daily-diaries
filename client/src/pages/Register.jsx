@@ -3,8 +3,11 @@ import toast from 'react-hot-toast';
 import { FaUserCircle, FaLock } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import { register } from '../api/auth';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../redux/slices/authSlice';
 
 const Register = () => {
+    const dispatch = useDispatch()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [loading,setLoading] = useState(false)
@@ -21,6 +24,7 @@ const Register = () => {
 
             if(data.success){
                 toast.success(data.message)
+                dispatch(setUser(data.username))
                 navigate("/")
             }else{
                 toast.error(data.message)

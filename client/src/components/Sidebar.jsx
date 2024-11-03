@@ -1,14 +1,34 @@
 import React from 'react';
 import useFetchStories from '../hooks/useFetchStories';
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../api/auth';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../redux/slices/authSlice';
+import toast from 'react-hot-toast';
 
 const Sidebar = () => {
   const { loading, stories } = useFetchStories();
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const handleLogout = async() => {
+    try{
+      const data = await logout()
+      if(data.success){
+        dispatch(setUser(null))
+        toast.success(data.message)
+        navigate("/login")
+      }
+
+    }catch(error){
+      console.log(error)
+    }
+  }
 
   return (
-    <div className='flex flex-col p-3 md:w-1/4 w-fit'>
-      {
+    <div className='flex flex-col justify-between p-3 md:w-1/4 w-fit'>
+     <div>
+     {
         loading ? (
           <p>Loading...</p>
         ) : (
@@ -23,6 +43,8 @@ const Sidebar = () => {
           )
         )
       }
+     </div>
+      <button onClick={handleLogout} className='bg-red-500 text-white rounded-lg p-2 text-sm'>Logout</button>
     </div>
   );
 }

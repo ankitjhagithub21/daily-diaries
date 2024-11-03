@@ -35,6 +35,13 @@ export const getAuthUser = async () => {
     return data;
 }
 
+export const logout = async () => {
+    const res = await fetch(`${baseUrl}/logout`, {
+        credentials: "include"
+    })
+    const data = await res.json()
+    return data;
+}
 
 
 

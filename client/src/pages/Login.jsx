@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { FaUserCircle, FaLock } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from 'react-router-dom';
 import { login} from '../api/auth';
+import { setUser} from '../redux/slices/authSlice';
 
 const Login = () => {
+    const dispatch = useDispatch()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [loading,setLoading] = useState(false)
@@ -21,6 +24,7 @@ const Login = () => {
 
             if(data.success){
                 toast.success(data.message)
+                dispatch(setUser(data.username))
                 navigate("/")
             }else{
                 toast.error(data.message)
