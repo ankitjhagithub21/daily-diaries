@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getStoryDetails } from '../api/story';
+import Loader from '../pages/Loader';
 
 const StoryDetails = () => {
     const { id } = useParams();
@@ -9,7 +10,7 @@ const StoryDetails = () => {
     useEffect(() => {
         const fetchStory = async () => {
             try {
-
+                setLoading(true)
                 const data = await getStoryDetails(id)
                 if (data.success) {
                     setData(data.story)
@@ -26,7 +27,7 @@ const StoryDetails = () => {
     }, [id])
 
     if (loading) {
-        return <p>Loading...</p>
+        return <Loader/>
     }
     if (!data) {
         return <p>Story not found</p>
