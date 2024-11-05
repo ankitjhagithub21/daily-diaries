@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
 import useFetchStories from '../hooks/useFetchStories';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../api/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../redux/slices/authSlice';
 import toast from 'react-hot-toast';
+import { IoIosClose } from 'react-icons/io';
 
 const Sidebar = ({isOpen,setIsOpen}) => {
   useFetchStories()
@@ -32,10 +32,12 @@ const Sidebar = ({isOpen,setIsOpen}) => {
     setIsOpen(false)
   }
   return (
-    <div className={`flex absolute ${isOpen ? 'md:w-1/4 w-full':'hidden'} lg:relative h-full trnasition duration-500 flex-col justify-between p-3  bg-white top-0 z-50`}>
+    <div className={`flex absolute ${isOpen ? 'md:w-1/4 w-full':'hidden'} lg:relative  h-screen trnasition duration-500 flex-col justify-between p-3  bg-white top-0 z-50`}>
       <div className='flex items-center justify-between mb-5'>
         <h2 className='text-xl font-bold'>Your stories</h2>
-        <button  onClick={() => setIsOpen(false)}>close</button>
+        <button  onClick={() => setIsOpen(false)}>
+          <IoIosClose size={30}/>
+        </button>
       </div>
       <div className='h-full overflow-y-scroll'>
         {

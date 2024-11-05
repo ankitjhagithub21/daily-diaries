@@ -15,9 +15,9 @@ const Home = () => {
 
       <Sidebar isOpen={isOpen} setIsOpen={setIsOpen}/>
 
-      <div className='h-full w-full flex flex-col'>
+      <div className='h-screen w-full flex flex-col'>
         <Navbar setIsOpen={setIsOpen}/>
-        <div className='h-full overflow-y-scroll'>
+        <div className='h-screen overflow-y-scroll'>
           <Routes>
             <Route index path="/" element={<WelcomePage />} />
             <Route path="/add" element={<AddStory />} />

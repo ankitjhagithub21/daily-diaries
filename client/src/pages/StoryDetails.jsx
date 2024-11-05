@@ -59,8 +59,8 @@ const StoryDetails = () => {
         return <p>Story not found</p>
     }
     return (
-        <div className=' relative'>
-            <div className='flex items-center justify-between  p-3 bg-white z-10 sticky top-0 w-full'>
+        <div className='relative'>
+            <div className='flex items-center justify-between  p-3 fixed z-10  top-0 w-full'>
                 <button onClick={() => navigate("/")} className='px-4 flex items-center gap-5 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600'>
                 <IoIosArrowBack />
                     back</button>
