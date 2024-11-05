@@ -13,9 +13,12 @@ const AddStory = () => {
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+    const handleSubmit = async () => {
+        if(!title || !story){
+            return toast.error("Title is required.")
+        }
         setLoading(true)
+
         const toastId = toast.loading("Processing your data...")
         try {
             const data = await addStory({ title, story })
@@ -40,13 +43,21 @@ const AddStory = () => {
 
     return (
         <div className='px-5 pb-12 pt-5'>
-           <BackButton/>
+            {console.log("re render")}
+            <div className='flex justify-between items-center'>
+                <BackButton />
+                <button type='submit' disabled={loading} className='bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700' onClick={handleSubmit}>
+                    {
+                        loading ? 'Publishing...' : 'Publish'
+                    }
+                </button>
+            </div>
             <p className='my-5'>
                 {new Date().toLocaleString()}
             </p>
 
-            <form onSubmit={handleSubmit}>
-                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder='Write your title here...' className='text-3xl outline-none w-full mb-5 p-2' required />
+            <div>
+                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder='Write your title here...' className='text-3xl outline-none w-full mb-5 p-2' />
                 <JoditEditor
                     ref={editor}
                     value={story}
@@ -57,12 +68,8 @@ const AddStory = () => {
                     onBlur={newStory => setStory(newStory)}
 
                 />
-                <button type='submit' disabled={loading} className='bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 mt-5'>
-                    {
-                        loading ? 'Publishing...' : 'Publish'
-                    }
-                </button>
-            </form>
+
+            </div>
         </div>
     )
 }
