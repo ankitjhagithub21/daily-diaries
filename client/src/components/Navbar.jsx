@@ -10,7 +10,7 @@ const Navbar = ({ isOpen, setIsOpen }) => {
           <FaBars />
         </button>
       }
-      <h2 className="text-indigo-500 font-bold text-xl">Daily Diaries</h2>
+      <h2 className="text-blue-500 font-bold text-xl">Daily Diaries</h2>
     </nav>
   )
 }

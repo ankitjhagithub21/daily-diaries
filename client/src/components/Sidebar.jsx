@@ -39,6 +39,7 @@ const Sidebar = ({isOpen,setIsOpen}) => {
           <IoIosClose size={30}/>
         </button>
       </div>
+      <button onClick={()=>navigate("/add")} className='bg-blue-500 hover:bg-blue-600 text-white text-md p-2 rounded-lg'>Start Writing</button>
       <div className='h-full overflow-y-scroll'>
         {
           loading ? (
@@ -49,7 +50,7 @@ const Sidebar = ({isOpen,setIsOpen}) => {
             ) : (
               <>
                 {stories.map((story) => (
-                  <div key={story._id} className='bg-gray-200 hover:bg-gray-300 text-sm p-2 rounded-lg my-1 cursor-pointer' onClick={()=>handleStoryClick(story._id)}>{story.title.slice(0, 30)}</div>
+                  <div key={story._id} className='bg-gray-200 hover:bg-gray-300 text-sm p-2 rounded-lg my-2 cursor-pointer' onClick={()=>handleStoryClick(story._id)}>{story.title.slice(0, 30)}</div>
                 ))}
               </>
             )

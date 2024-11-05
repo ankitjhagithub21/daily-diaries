@@ -4,6 +4,7 @@ import JoditEditor from 'jodit-react';
 import { addStory } from '../api/story';
 import { useDispatch } from 'react-redux';
 import { addNewStory } from '../redux/slices/storySlice';
+import BackButton from '../components/BackButton';
 
 const AddStory = () => {
     const editor = useRef(null);
@@ -23,7 +24,7 @@ const AddStory = () => {
                 toast.success(data.message)
                 setTitle('')
                 setStory('')
-                
+
             } else {
                 toast.error(data.message)
             }
@@ -39,8 +40,8 @@ const AddStory = () => {
 
     return (
         <div className='px-5 pb-12 pt-5'>
-  <h2 className='text-center text-2xl mb-5 font-bold'>Write anything that's in your mind ?</h2>
-            <p className='mb-5'>
+           <BackButton/>
+            <p className='my-5'>
                 {new Date().toLocaleString()}
             </p>
 
@@ -50,15 +51,15 @@ const AddStory = () => {
                     ref={editor}
                     value={story}
                     config={{
-                        height: "65vh" 
+                        height: "65vh"
                     }}
                     tabIndex={1} // tabIndex of textarea
                     onBlur={newStory => setStory(newStory)}
-          
+
                 />
                 <button type='submit' disabled={loading} className='bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 mt-5'>
                     {
-                        loading ? 'Publishing...' :'Publish'
+                        loading ? 'Publishing...' : 'Publish'
                     }
                 </button>
             </form>

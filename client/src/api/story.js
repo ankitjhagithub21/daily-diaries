@@ -13,6 +13,20 @@ export const addStory = async (story) => {
     return data;
 }
 
+export const editStory = async (story,id) => {
+    const res = await fetch(`${baseUrl}/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(story)
+    })
+    const data = await res.json()
+    return data;
+}
+
+
 
 export const deleteStory = async (id) => {
     const res = await fetch(`${baseUrl}/${id}`, {

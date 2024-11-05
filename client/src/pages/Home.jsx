@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom'
 import StoryDetails from './StoryDetails'
 import WelcomePage from './WelcomePage'
 import Navbar from '../components/Navbar'
+import EditStory from './EditStory'
 
 
 const Home = () => {
@@ -21,6 +22,7 @@ const Home = () => {
           <Routes>
             <Route index path="/" element={<WelcomePage />} />
             <Route path="/add" element={<AddStory />} />
+            <Route path="/edit/:id" element={<EditStory />} />
             <Route path="/stories/:id" element={<StoryDetails />} />
           </Routes>
         </div>
