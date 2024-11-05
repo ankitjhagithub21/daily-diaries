@@ -19,6 +19,14 @@ export const storySlice = createSlice({
         removeStory:(state,action)=>{
             state.stories = state.stories.filter((story)=>story._id !== action.payload)
         },
+        updateStory: (state, action) => {
+            console.log(action.payload)
+            state.stories = state.stories.map((story) =>
+                story._id === action.payload.id
+                    ? action.payload.story
+                    : story
+            );
+        },
         setLoading: (state, action) => {
             state.loading = action.payload
         },
@@ -26,6 +34,6 @@ export const storySlice = createSlice({
 })
 
 
-export const { setStories,setLoading,addNewStory,removeStory } = storySlice.actions
+export const { setStories,setLoading,addNewStory,removeStory,updateStory } = storySlice.actions
 
 export default storySlice.reducer

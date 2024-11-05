@@ -16,7 +16,7 @@ const createStory = async (req, res) => {
 
         const savedDairy = await newDairy.save();
 
-        res.status(201).json({ success: true, message: "Story added.", story: savedDairy })
+        res.status(201).json({ success: true, message: "Story added.", story: {_id:savedDairy._id,title:savedDairy.title} })
 
     } catch (error) {
         res.status(500).json({ success: false, message: "Server error." })
@@ -32,7 +32,7 @@ const editStory = async (req, res) => {
             return res.status(404).json({ success: false, message: "Story not found." });
         }
 
-        res.status(200).json({ success: true, message: "Story updated successfully.", story });
+        res.status(200).json({ success: true, message: "Story updated successfully.", story:{_id:story._id,title:story.title} });
     } catch (error) {
         res.status(500).json({ success: false, message: "Server error." });
     }

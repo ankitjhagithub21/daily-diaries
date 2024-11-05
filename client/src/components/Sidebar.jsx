@@ -31,6 +31,10 @@ const Sidebar = ({isOpen,setIsOpen}) => {
     navigate(`/stories/${id}`)
     setIsOpen(false)
   }
+  const handleClick = () =>{
+    navigate("/add")
+    setIsOpen(false)
+  }
   return (
     <div className={`flex absolute ${isOpen ? 'md:w-1/4 w-full':'hidden'} lg:relative  h-screen trnasition duration-500 flex-col justify-between p-3  bg-white top-0 z-50`}>
       <div className='flex items-center justify-between mb-5'>
@@ -39,7 +43,7 @@ const Sidebar = ({isOpen,setIsOpen}) => {
           <IoIosClose size={30}/>
         </button>
       </div>
-      <button onClick={()=>navigate("/add")} className='bg-blue-500 hover:bg-blue-600 text-white text-md p-2 rounded-lg'>Start Writing</button>
+      <button onClick={handleClick} className='bg-blue-500 hover:bg-blue-600 text-white text-md p-2 rounded-lg'>Start Writing</button>
       <div className='h-full overflow-y-scroll'>
         {
           loading ? (

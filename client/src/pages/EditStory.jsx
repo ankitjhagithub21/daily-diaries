@@ -5,6 +5,8 @@ import JoditEditor from 'jodit-react';
 import { editStory, getStoryDetails } from '../api/story';
 import Loader from './Loader';
 import BackButton from '../components/BackButton';
+import { useDispatch } from 'react-redux';
+import { updateStory } from '../redux/slices/storySlice';
 
 const EditStory = () => {
   const editor = useRef(null);
@@ -14,6 +16,7 @@ const EditStory = () => {
   const [story, setStory] = useState('');
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const getData = async () => {
@@ -21,15 +24,15 @@ const EditStory = () => {
         const data = await getStoryDetails(id);
         if (data.success) {
           setCurrStory(data.story);
-          setTitle(data.story.title); 
-          setStory(data.story.story); 
+          setTitle(data.story.title);
+          setStory(data.story.story);
         } else {
           toast.error(data.message);
         }
       } catch (error) {
         toast.error("Error fetching story details");
         console.log(error);
-      }finally{
+      } finally {
         setLoading(false)
       }
     };
@@ -44,6 +47,7 @@ const EditStory = () => {
       const data = await editStory({ title, story }, id);
       if (data.success) {
         toast.success(data.message);
+        dispatch(updateStory({id,story:data.story}))
         navigate(`/stories/${id}`);
       } else {
         toast.error(data.message);
@@ -66,17 +70,24 @@ const EditStory = () => {
 
   return (
     <div className="px-5 pb-12 pt-5">
-     <BackButton/>
+      <div className='flex justify-between items-center'>
+        <BackButton />
+        <button type='submit' disabled={loading} className='bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700' onClick={handleSubmit}>
+          {
+            loading ? 'Publishing...' : 'Publish'
+          }
+        </button>
+      </div>
       <p className="my-5">{new Date().toLocaleString()}</p>
 
-      <form onSubmit={handleSubmit}>
+      <div>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Write your title here..."
           className="text-3xl outline-none w-full mb-5 p-2"
-          required
+
         />
         <JoditEditor
           ref={editor}
@@ -87,14 +98,8 @@ const EditStory = () => {
           tabIndex={1} // tabIndex of textarea
           onBlur={(newStory) => setStory(newStory)} // onBlur updates the story
         />
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 mt-5"
-        >
-          {loading ? 'Publishing...' : 'Publish'}
-        </button>
-      </form>
+
+      </div>
     </div>
   );
 };
