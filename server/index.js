@@ -13,7 +13,7 @@ connectDB()
 
 app.use(express.json())
 app.use(cors({
-  origin:[process.env.ORIGIN,"http://192.168.193.1:5173"],
+  origin:process.env.ORIGIN,
   credentials:true
 }))
 app.use(cookieParser())
