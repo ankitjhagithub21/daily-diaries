@@ -38,8 +38,8 @@ const AddStory = () => {
     }
 
     return (
-        <div className='p-5'>
-
+        <div className='px-5 pb-12 pt-5'>
+  <h2 className='text-center text-2xl mb-5 font-bold'>Write anything that's in your mind ?</h2>
             <p className='mb-5'>
                 {new Date().toLocaleString()}
             </p>
