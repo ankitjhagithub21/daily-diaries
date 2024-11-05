@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useFetchStories from '../hooks/useFetchStories';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../api/auth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../redux/slices/authSlice';
 import toast from 'react-hot-toast';
 
 const Sidebar = () => {
-  const { loading, stories } = useFetchStories();
+  useFetchStories()
+  const { loading, stories } = useSelector(state=>state.story);
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [isOpen, setIsOpen] = useState(true)
 
   const handleLogout = async () => {
     try {
@@ -26,8 +28,11 @@ const Sidebar = () => {
   }
 
   return (
-    <div className='flex absolute lg:relative flex-col justify-between p-3  md:w-1/4 w-full  bg-white h-screen top-0 z-50'>
-      <h2 className='text-xl font-bold'>Your stories</h2>
+    <div className={`flex absolute ${isOpen ? 'md:w-1/4 w-full':'hidden'} lg:relative trnasition duration-500 flex-col justify-between p-3  bg-white h-screen top-0 z-50`}>
+      <div className='flex items-center justify-between mb-5'>
+        <h2 className='text-xl font-bold'>Your stories</h2>
+        <button  onClick={() => setIsOpen(false)}>close</button>
+      </div>
       <div className='h-full overflow-y-scroll'>
         {
           loading ? (

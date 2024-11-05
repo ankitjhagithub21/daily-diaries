@@ -27,9 +27,6 @@ app.use("/api/auth",authRouter)
 app.use("/api/stories",storyRouter)
 
 
-
-
-
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`)
 })

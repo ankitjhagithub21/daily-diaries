@@ -2,12 +2,15 @@ import React, { useState, useRef } from 'react';
 import toast from 'react-hot-toast';
 import JoditEditor from 'jodit-react';
 import { addStory } from '../api/story';
+import { useDispatch } from 'react-redux';
+import { addNewStory } from '../redux/slices/storySlice';
 
 const AddStory = () => {
     const editor = useRef(null);
     const [title, setTitle] = useState('')
     const [story, setStory] = useState('');
     const [loading, setLoading] = useState(false)
+    const dispatch = useDispatch()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -16,9 +19,11 @@ const AddStory = () => {
         try {
             const data = await addStory({ title, story })
             if (data.success) {
+                dispatch(addNewStory(data.story))
                 toast.success(data.message)
                 setTitle('')
                 setStory('')
+                
             } else {
                 toast.error(data.message)
             }
@@ -40,12 +45,12 @@ const AddStory = () => {
             </p>
 
             <form onSubmit={handleSubmit}>
-                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder='Title' className='text-3xl outline-none w-full mb-5 p-2' required />
+                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder='Write your title here...' className='text-3xl outline-none w-full mb-5 p-2' required />
                 <JoditEditor
                     ref={editor}
                     value={story}
                     config={{
-                        height: "100" 
+                        height: "65vh" 
                     }}
                     tabIndex={1} // tabIndex of textarea
                     onBlur={newStory => setStory(newStory)}

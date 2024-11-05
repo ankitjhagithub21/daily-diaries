@@ -1,25 +1,29 @@
-import { useEffect, useState } from 'react'
+import { useEffect} from 'react'
 import { getAllStories } from '../api/story'
+import { useDispatch} from 'react-redux'
+import { setLoading, setStories } from '../redux/slices/storySlice'
 
 const useFetchStories = () => {
-    const [loading,setLoading] = useState(true)
-    const [stories,setStories] = useState([])
+    
+    const dispatch = useDispatch()
     useEffect(() => {
         const getData = async() => {
             try {
                 const data = await getAllStories();
                 if(data.success){
-                    setStories(data.stories)   
+                    dispatch(setStories(data.stories))
+                }else{
+                    dispatch(setStories([]))
                 }
             } catch (error) {
                 console.log(error)
             } finally {
-                setLoading(false)
+                dispatch(setLoading(false))
             }
         }
         getData()
     }, [])
-    return {loading,stories}
+  
 }
 
 export default useFetchStories
