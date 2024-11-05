@@ -1,32 +1,14 @@
 import useFetchStories from '../hooks/useFetchStories';
 import { useNavigate } from 'react-router-dom';
-import { logout } from '../api/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../redux/slices/authSlice';
-import toast from 'react-hot-toast';
 import { IoIosClose } from 'react-icons/io';
 
 const Sidebar = ({isOpen,setIsOpen}) => {
   useFetchStories()
   const { loading, stories } = useSelector(state=>state.story);
   const navigate = useNavigate()
-  const dispatch = useDispatch()
- 
-
-  const handleLogout = async () => {
-    try {
-      const data = await logout()
-      if (data.success) {
-        dispatch(setUser(null))
-        toast.success(data.message)
-        navigate("/login")
-      }
-
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
+  
+  
   const handleStoryClick = (id) =>{
     navigate(`/stories/${id}`)
     setIsOpen(false)
@@ -54,14 +36,14 @@ const Sidebar = ({isOpen,setIsOpen}) => {
             ) : (
               <>
                 {stories.map((story) => (
-                  <div key={story._id} className='bg-gray-200 hover:bg-gray-300 text-sm p-2 rounded-lg my-2 cursor-pointer' onClick={()=>handleStoryClick(story._id)}>{story.title.slice(0, 30)}</div>
+                  <div key={story._id} className='bg-gray-200 hover:bg-gray-300 overflow-hidden p-2 rounded-lg my-2 cursor-pointer' onClick={()=>handleStoryClick(story._id)}>{story.title}</div>
                 ))}
               </>
             )
           )
         }
       </div>
-      <button onClick={handleLogout} className='bg-red-500 text-white rounded-lg p-2 text-sm'>Logout</button>
+     
     </div>
   );
 }
