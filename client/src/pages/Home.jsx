@@ -8,7 +8,7 @@ import Navbar from '../components/Navbar'
 
 
 const Home = () => {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
   return (
     <main className='flex h-screen w-screen'>
 
